@@ -73,13 +73,18 @@ function Ball(position, velocity, acceleration, mass, radius, actions){
 };
   
 function checkInnerCollisions(objects){
-  var result = false;
+  var result = 0;
   objects.forEach(function(ei, i, arrayi){
     objects.forEach(function(ej, j, arrrayj){
       if (i < j) {
       	if (Math.sqrt(squareDistanceWith(ei.position, ej.position)) < ei.radius + ej.radius) {
-          if (i == 0 && ei.mass < ej.mass) {
-            result = true;
+          if (i == 0) {
+            if (ei.mass < ej.mass){
+              result =  -1;
+            }
+            else {
+              result =  ej.mass;
+            }
           }
           ei.acceleration[0]= (ei.mass*ei.acceleration[0] + ej.mass*ej.acceleration[0])/(ei.mass + ej.mass);
       	  ei.acceleration[1]= (ei.mass*ei.acceleration[1] + ej.mass*ej.acceleration[1])/(ei.mass + ej.mass);

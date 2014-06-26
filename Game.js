@@ -22,13 +22,23 @@ function Game(){
 	};
 
 	this.updatePhysics = function(){
-		this.gameover = checkInnerCollisions(this.objects);
+		var powerGained = checkInnerCollisions(this.objects);
+		if (powerGained == -1){
+			this.gameover = true;
+		}
+		else {
+			this.gainPower(powerGained);
+		}
 		var pointer = this;
 		this.objects.forEach(function(element, index, array){
 	      element.updatePosition(array);
 	      pointer.eliminateFarest(element, index);
 	    });
 	};
+
+	this.gainPower = function(value){
+		this.power+= value;
+	}
 
 	this.popBody = function(){
 		var part = Math.floor(Math.random()*4);
