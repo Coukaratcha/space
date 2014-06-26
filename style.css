@@ -1,0 +1,18 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	background: #eaeaea;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+canvas {
+	display: block;
+	background: url('images/7.jpg') repeat;
+	z-index: 5;
+}
