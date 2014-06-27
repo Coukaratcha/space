@@ -35,6 +35,7 @@ function Display(origin, scale){
   };
 
   this.displayBall = function(Ball, perso){
+    this.context.beginPath();
     if (Ball.mass > perso.mass) {
       this.context.fillStyle = "rgb(255, 125, 0)";
     }
@@ -44,15 +45,15 @@ function Display(origin, scale){
     else {
       this.context.fillStyle = "rgb(255, 255, 255)";
     }
+    this.context.fillStyle = "rgb(0, 0, 0)";
     this.context.lineWidth = "1";
-    this.context.beginPath();
     this.context.arc(Ball.position[0] - this.origin[0] + this.canvas.width/2, this.canvas.height/2 - Ball.position[1] + this.origin[1], Ball.radius, 0, Math.PI*2);
-    this.context.fill();
+    this.context.stroke();
   };
 
   this.displayMassBall = function(Ball){
     this.context.fillStyle = 'white';
-    this.context.fillText(""+Math.floor(Ball.mass*100)/100, Ball.position[0] - this.origin[0] + this.canvas.width/2 + Ball.radius, this.canvas.height/2 - Ball.position[1] + this.origin[1] - 2*Ball.radius);
+    this.context.fillText(""+Math.floor(Ball.mass*100)/100, Ball.position[0] - this.origin[0] + this.canvas.width/2 + Ball.radius, this.canvas.height/2 - Ball.position[1] + this.origin[1] - (Ball.radius));
     this.context.fill();
   }
 
