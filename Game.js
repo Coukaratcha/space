@@ -5,9 +5,7 @@ function Game(){
 	this.vue = new Display([0, 0], 1);
 	this.objects = [new Ball([this.vue.canvas.width/2, this.vue.canvas.height/2], [0,0], [0, 0], 25, 10, [[0, 0]])];
 	this.timer = 0;
-	this.end = [0, 0];
-	this.current = [0, 0];
-	this.trigger = false;
+	this.trigger = true;
 
 	this.display = function(){
 		this.vue.clearScreen();
@@ -81,7 +79,22 @@ function Game(){
 
 var jeu = new Game();
 
-$(document).mousemove(function(e){
+$(document).bind('dblclick',function(e){
+    e.preventDefault();
+});
+
+$(document).click(function(e){
+	var powerUsed = Math.sqrt(squareDistanceWith([e.pageX, jeu.vue.canvas.height - e.pageY], [jeu.vue.canvas.width/2, jeu.vue.canvas.height/2]))/20;
+	var powerPrevious = powerUsed;
+	if (powerUsed > powerUsed){
+		powerUsed = jeu.power;
+	}
+	jeu.objects[0].velocity[0]+= (jeu.vue.canvas.width/2 - e.pageX)/50*(powerUsed/powerPrevious);
+	jeu.objects[0].velocity[1]+= (e.pageY - jeu.vue.canvas.height/2)/50*(powerUsed/powerPrevious);
+	jeu.power-= powerUsed;
+});
+
+/*$(document).mousemove(function(e){
 	jeu.current = [e.pageX, e.pageY];
 });
 
@@ -100,7 +113,7 @@ $(document).mouseup(function(e){
 	jeu.objects[0].velocity[0]+= (jeu.end[0] - jeu.current[0])/50*(powerUsed/powerPrevious);
 	jeu.objects[0].velocity[1]+= (jeu.current[1] - jeu.end[1])/50*(powerUsed/powerPrevious);
 	jeu.power-= powerUsed;
-});
+});*/
 
 function derouler(){
 	jeu.display();
