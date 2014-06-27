@@ -1,5 +1,4 @@
 function Game(){
-	this.score = 0;
 	this.power = 100;
 	this.gameover = false;
 	this.vue = new Display([0, 0], 1);
@@ -86,11 +85,11 @@ $(document).bind('dblclick',function(e){
 $(document).click(function(e){
 	var powerUsed = Math.sqrt(squareDistanceWith([e.pageX, jeu.vue.canvas.height - e.pageY], [jeu.vue.canvas.width/2, jeu.vue.canvas.height/2]))/20;
 	var powerPrevious = powerUsed;
-	if (powerUsed > powerUsed){
+	if (powerUsed > jeu.power){
 		powerUsed = jeu.power;
 	}
-	jeu.objects[0].velocity[0]+= (jeu.vue.canvas.width/2 - e.pageX)/50*(powerUsed/powerPrevious);
-	jeu.objects[0].velocity[1]+= (e.pageY - jeu.vue.canvas.height/2)/50*(powerUsed/powerPrevious);
+	jeu.objects[0].velocity[0]+= (e.pageX - jeu.vue.canvas.width/2)/50*(powerUsed/powerPrevious);
+	jeu.objects[0].velocity[1]+= (jeu.vue.canvas.height/2 - e.pageY)/50*(powerUsed/powerPrevious);
 	jeu.power-= powerUsed;
 });
 
@@ -119,14 +118,13 @@ function derouler(){
 	jeu.display();
 	jeu.updatePhysics();
 	if (jeu.gameover) {
-		alert("Perdu ! Score : "+jeu.score);
+		alert("Perdu ! Score : "+Math.floor(jeu.objects[0].mass));
 	}
 	else {
 		jeu.timer++;
 	}
 	if (jeu.timer > 10){
 		jeu.timer = 0;
-		jeu.score+= 50;
 		jeu.popBody();
 	}
 }

@@ -1,4 +1,4 @@
-var G = 6.67384 * 0.5;
+var G = 6.67384 * 0.1;
 
 function squareDistanceWith(x, y){
   return (y[0]-x[0])*(y[0]-x[0]) + (y[1]-x[1])*(y[1]-x[1]);
@@ -88,7 +88,7 @@ function checkInnerCollisions(objects){
           }
           ei.acceleration[0]= (ei.mass*ei.acceleration[0] + ej.mass*ej.acceleration[0])/(ei.mass + ej.mass);
       	  ei.acceleration[1]= (ei.mass*ei.acceleration[1] + ej.mass*ej.acceleration[1])/(ei.mass + ej.mass);
-      	  ei.radius =  Math.pow(Math.pow(ej.radius, 3) + Math.pow(ei.radius, 3), 1.0/3);
+      	  ei.radius =  Math.pow(Math.pow(ej.radius, 3) + Math.pow(ei.radius, 3), 1.0/3)*0.90;
       	  ei.mass+= ej.mass;
       	  objects.splice(j, 1);
       	  ei.actions[j] = [0,0];
