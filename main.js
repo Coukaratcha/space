@@ -12,6 +12,12 @@ $("#help_panel").click(function(){
 	$("#help_panel").slideUp();
 });
 
+$("button#restart").click(function(){
+	$("#frontEnd").slideUp(500, function(){
+		$("canvas").fadeIn(200, launchGame());
+	});
+});
+
 var launchGame = function(){
 	var jeu = new Game();
 
@@ -57,8 +63,8 @@ var launchGame = function(){
 		if (jeu.gameover){
 			clearInterval(boucle);
 			$("#score").text(""+Math.floor(jeu.score));
-			$("#frontEnd").slideDown(500, function(){
-				$("canvas").fadeOut();
+			$("canvas").fadeOut(200, function(){
+				$('#frontEnd').slideDown(500);
 			});
 		}
 		else {
@@ -70,5 +76,5 @@ var launchGame = function(){
 		}
 	}
 
-	var boucle = setInterval(derouler, 1000/70);
+	var boucle = setInterval(derouler, 1000/100);
 };

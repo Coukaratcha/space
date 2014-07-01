@@ -9,14 +9,14 @@ function Game(){
 
 	this.display = function(){
 		this.vue.clearScreen();
-		this.vue.displayGrid();
-		this.vue.displayBar(this.power);
+		//this.vue.displayGrid();
 		this.vue.updateDisplay(this.objects[0].position);
 		var pointer = this;
 		this.objects.forEach(function(element, index, array){
 			pointer.vue.displayBall(element, array[0]);
 			pointer.vue.displayMassBall(element);
 		});
+		this.vue.displayBar(this.power);
 	};
 
 	this.updatePhysics = function(){

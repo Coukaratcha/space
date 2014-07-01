@@ -24,9 +24,9 @@ function Display(origin, scale){
   };
 
   this.displayGrid = function(){
+    this.context.beginPath();
     this.context.strokeStyle = "grey";
     this.context.lineWidth = "1";
-    this.context.beginPath();
     this.context.moveTo(0, this.canvas.height/2);
     this.context.lineTo(this.canvas.width, this.canvas.height/2);
     this.context.moveTo(this.canvas.width/2, 0);
@@ -37,20 +37,24 @@ function Display(origin, scale){
   this.displayBall = function(Ball, perso){
     this.context.beginPath();
     if (Ball.mass > perso.mass) {
-      this.context.fillStyle = "rgb(255, 125, 0)";
+      color = "#c22121";
     }
     else if (Ball.mass < perso.mass){
-      this.context.fillStyle = "rgb(0, 255, 125)";
+      color = "#7ED1D8";
     }
     else {
-      this.context.fillStyle = "rgb(255, 255, 255)";
+      color = "white";
     }
-    this.context.lineWidth = "5";
+    this.context.fillStyle = color;
+    this.context.shadowColor = color;
+    this.context.shadowBlur = '5';
     this.context.arc(Ball.position[0] - this.origin[0] + this.canvas.width/2, this.canvas.height/2 - Ball.position[1] + this.origin[1], Ball.radius, 0, Math.PI*2);
     this.context.fill();
   };
 
   this.displayMassBall = function(Ball){
+    this.context.beginPath();
+    this.context.shadowBlur = '0';
     this.context.fillStyle = 'white';
     this.context.fillText(""+Math.floor(Ball.mass*100)/100, Ball.position[0] - this.origin[0] + this.canvas.width/2 + Ball.radius, this.canvas.height/2 - Ball.position[1] + this.origin[1] - (Ball.radius));
     this.context.fill();
@@ -58,10 +62,10 @@ function Display(origin, scale){
 
   this.drawActions = function(Ball){
     if (this.showActions){
+      this.context.beginPath();
       this.context.strokeStyle = "Chocolate";
       this.context.lineWidth = "4";
       this.context.lineCap = 'round';
-      this.context.beginPath();
       var pointer = this;
       Ball.actions.forEach(function(element, index, array){
         pointer.context.moveTo(Ball.position[0] - origin[0] + pointer.canvas.width/2, pointer.canvas.height/2 - Ball.position[1] + origin[1]);
@@ -71,15 +75,14 @@ function Display(origin, scale){
     }
   };
   
-  this.displayLine = function (){
+  this.displayLine = function(){
     if (trigger){
+      this.context.beginPath();
     	this.context.strokeStyle = "rgba(0, 0, 0, 0)";
     	this.context.strokeStyle = "rgba(0, 0, 0, 0.2)";
     	this.context.lineWidth = "5";
-    	this.context.beginPath();
     	this.context.moveTo(end[0], this.canvas.height - end[1]);
     	this.context.lineTo(current[0], this.canvas.height - current[1]);
-    	this.context.closePath();
     	this.context.stroke();
     }
   };
@@ -89,8 +92,15 @@ function Display(origin, scale){
       value = 0;
     }
     this.context.beginPath();
-    this.context.rect(50, 50, value, 20);
+    this.context.shadowColor = '#FFF';
+    this.context.shadowBlur = '0';
+    this.context.fillStyle = 'rgba(0,0,0,0.2)';
+    this.context.rect(0, 0, value+400, 100);
+    this.context.fill();
+    this.context.beginPath();
+    this.context.shadowBlur = '5';
     this.context.fillStyle = 'white';
+    this.context.rect(50, 50, value, 20);
     this.context.fillText("Power : "+Math.floor(value), 50, 30);
     this.context.fill();
   };

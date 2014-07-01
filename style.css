@@ -20,9 +20,10 @@ canvas {
 }
 
 .screen{
+	color: white;
 	height: 100%;
 	width: 100%;
-	background: #EAEAEA;
+	background: #222;
 	overflow: hidden;
 	cursor: pointer;
 	display: none;
@@ -36,13 +37,12 @@ canvas {
 }
 
 .screen h1{
-	padding-top: 50px;
+	padding: 50px 0;
 	text-align: center;
 	text-transform: uppercase;
-	background: #c22121;
-	color: white;
-	border-bottom: white 20px solid;
-	box-shadow: rgba(0,0,0,0.2) 0 0 20px 2px;
+	background: white;
+	color: #c22121;
+	border-bottom: #c22121 15px solid;
 	margin-bottom: 50px;
 }
 
@@ -52,14 +52,13 @@ canvas {
 	width: 500px;
 	margin: 100px auto;
 	text-align: center;
-	background: #c22121;
+	background: white;
+	color: #c22121;
 	border: none;
+	border-bottom: #c22121 10px solid;
 	font-weight: bolder;
 	font-size: 2em;
-	color: white;
 	border-radius: 10px 10px 0 0;
-	border-bottom: white 10px solid;
-	box-shadow: rgba(0,0,0,0.2) 0 0 10px 1px;
 }
 
 .screen button:active{
