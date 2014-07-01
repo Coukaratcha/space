@@ -1,5 +1,6 @@
 function Game(){
 	this.power = 100;
+	this.score = 0;
 	this.gameover = false;
 	this.vue = new Display([0, 0], 1);
 	this.objects = [new Ball([this.vue.canvas.width/2, this.vue.canvas.height/2], [0,0], [0, 0], 25, 10, [[0, 0]])];
@@ -34,12 +35,13 @@ function Game(){
 	};
 
 	this.gainPower = function(value){
+		this.score+= value;
 		this.power+= value;
 	}
 
 	this.popBody = function(){
 		var part = Math.floor(Math.random()*4);
-		var mass = Math.random() * (5/2*this.objects[0].mass) + this.objects[0].mass/2;
+		var mass = Math.random() * (this.objects[0].mass) + this.objects[0].mass*3/4;
 		var radius = Math.random() * (this.objects[0].radius*5/2) + this.objects[0].radius/2;
 		switch(part){
 			case 0: // l'objet popera en haut

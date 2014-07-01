@@ -1,7 +1,7 @@
 $("button#play").click(function(){
-	$("#frontStart").fadeOut();
-	$("canvas").fadeIn();
-	launchGame();
+	$("#frontStart").slideUp(500, function(){
+		$("canvas").fadeIn(200, launchGame());
+	});
 });
 
 $("button#help").click(function(){
@@ -56,9 +56,10 @@ var launchGame = function(){
 		jeu.updatePhysics();
 		if (jeu.gameover){
 			clearInterval(boucle);
-			$("#frontEnd").slideDown();
-			$("#score").text(""+Math.floor(jeu.objects[0].mass));
-			$("canvas").fadeOut();
+			$("#score").text(""+Math.floor(jeu.score));
+			$("#frontEnd").slideDown(500, function(){
+				$("canvas").fadeOut();
+			});
 		}
 		else {
 			jeu.timer++;
