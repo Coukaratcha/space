@@ -7,6 +7,10 @@ function Game(){
 	this.timer = 0;
 	this.trigger = true;
 
+	this.updateG = function(){
+		G = 6.67384* 0.1 * this.vue.scale;
+	};
+
 	this.display = function(){
 		this.vue.updateScale(this.objects[0]);
 		this.vue.clearScreen();
@@ -15,12 +19,13 @@ function Game(){
 		var pointer = this;
 		this.objects.forEach(function(element, index, array){
 			pointer.vue.displayBall(element, array[0]);
-			pointer.vue.displayMassBall(element);
+			//pointer.vue.displayMassBall(element);
 		});
 		this.vue.displayBar(this.power);
 	};
 
 	this.updatePhysics = function(){
+		this.updateG();
 		var powerGained = checkInnerCollisions(this.objects);
 		if (powerGained == -1){
 			this.gameover = true;
@@ -31,6 +36,7 @@ function Game(){
 		var pointer = this;
 		this.objects.forEach(function(element, index, array){
 	      element.updatePosition(array);
+	      element.updateRadius();
 	      pointer.eliminateFarest(element, index);
 	    });
 	};
@@ -42,7 +48,7 @@ function Game(){
 
 	this.popBody = function(){
 		var part = Math.floor(Math.random()*4);
-		var mass = Math.random() * (this.objects[0].mass) + this.objects[0].mass*3/4;
+		var mass = Math.random() * (this.objects[0].mass*7) + 10;
 		var radius = Math.random() * (this.objects[0].radius*5/2) + this.objects[0].radius/2;
 		switch(part){
 			case 0: // l'objet popera en haut
@@ -73,7 +79,7 @@ function Game(){
 	};
 
 	this.eliminateFarest = function(element, index){
-		if (Math.abs(element.position[0]-this.objects[0].position[0]) > this.vue.windowW*2 || Math.abs(element.position[1]-this.objects[0].position[1]) > this.vue.windowH*2){
+		if (Math.abs(element.position[0]-this.objects[0].position[0]) > this.vue.windowW*10 || Math.abs(element.position[1]-this.objects[0].position[1]) > this.vue.windowH*10){
 			this.objects.splice(index, 1);
 		}
 	};

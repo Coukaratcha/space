@@ -13,11 +13,15 @@ function Display(origin, scale){
   this.context.font = "15pt Arial,serif";
   this.windowH = this.canvas.height*this.scale;
   this.windowW = this.canvas.width*this.scale;  
+  this.nextScale = this.scale;
 
   this.updateScale = function(Ball){
-    this.scale = Math.floor(Ball.radius/40);
-    if (this.scale < 1){
-      this.scale = 1;
+    this.nextScale = Math.floor(Ball.radius/10);
+    if (this.nextScale < 1){
+      this.nextScale = 1;
+    }
+    if (this.nextScale > this.scale){
+      this.scale+= this.scale*0.05;
     }
     this.windowH = this.canvas.height*this.scale;
     this.windowW = this.canvas.width*this.scale;
@@ -67,7 +71,7 @@ function Display(origin, scale){
     this.context.beginPath();
     this.context.shadowBlur = '0';
     this.context.fillStyle = 'white';
-    this.context.fillText(""+Math.floor(Ball.mass*100)/100, (Ball.position[0] - this.origin[0])/this.scale + this.canvas.width/2 + Ball.radius, this.canvas.height/2 - (Ball.position[1] - this.origin[1])/this.scale);
+    this.context.fillText(""+Math.floor(Ball.mass*100)/100, (Ball.position[0] - this.origin[0] + Ball.radius)/this.scale + this.canvas.width/2, this.canvas.height/2 - (Ball.position[1] - this.origin[1] + Ball.radius)/this.scale);
     this.context.fill();
   }
 
@@ -106,7 +110,7 @@ function Display(origin, scale){
     this.context.shadowColor = '#FFF';
     this.context.shadowBlur = '0';
     this.context.fillStyle = 'rgba(0,0,0,0.2)';
-    this.context.rect(0, 0, value+400, 100);
+    this.context.rect(0, 0, this.canvas.width, 100);
     this.context.fill();
     this.context.beginPath();
     this.context.shadowBlur = '5';
