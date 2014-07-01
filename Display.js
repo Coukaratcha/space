@@ -11,6 +11,17 @@ function Display(origin, scale){
   this.canvas.height = window.innerHeight;
   this.canvas.width = window.innerWidth;
   this.context.font = "15pt Arial,serif";
+  this.windowH = this.canvas.height*this.scale;
+  this.windowW = this.canvas.width*this.scale;  
+
+  this.updateScale = function(Ball){
+    this.scale = Math.floor(Ball.radius/40);
+    if (this.scale < 1){
+      this.scale = 1;
+    }
+    this.windowH = this.canvas.height*this.scale;
+    this.windowW = this.canvas.width*this.scale;
+  };
 
   this.clearScreen = function(){
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -18,7 +29,7 @@ function Display(origin, scale){
 
   this.updateDisplay = function(position){
       $("#screen").css({
-      "background-position": (-this.origin[0]%1024)+"px "+(this.origin[1]%1024)+"px"
+      "background-position": (-this.origin[0]/this.scale%1024)+"px "+(this.origin[1]/this.scale%1024)+"px"
       });
       this.origin = position;
   };
@@ -48,7 +59,7 @@ function Display(origin, scale){
     this.context.fillStyle = color;
     this.context.shadowColor = color;
     this.context.shadowBlur = '5';
-    this.context.arc(Ball.position[0] - this.origin[0] + this.canvas.width/2, this.canvas.height/2 - Ball.position[1] + this.origin[1], Ball.radius, 0, Math.PI*2);
+    this.context.arc((Ball.position[0] - this.origin[0])/this.scale + this.canvas.width/2, this.canvas.height/2 - (Ball.position[1] - this.origin[1])/this.scale, Ball.radius/this.scale, 0, Math.PI*2);
     this.context.fill();
   };
 
@@ -56,7 +67,7 @@ function Display(origin, scale){
     this.context.beginPath();
     this.context.shadowBlur = '0';
     this.context.fillStyle = 'white';
-    this.context.fillText(""+Math.floor(Ball.mass*100)/100, Ball.position[0] - this.origin[0] + this.canvas.width/2 + Ball.radius, this.canvas.height/2 - Ball.position[1] + this.origin[1] - (Ball.radius));
+    this.context.fillText(""+Math.floor(Ball.mass*100)/100, (Ball.position[0] - this.origin[0])/this.scale + this.canvas.width/2 + Ball.radius, this.canvas.height/2 - (Ball.position[1] - this.origin[1])/this.scale);
     this.context.fill();
   }
 
@@ -100,7 +111,7 @@ function Display(origin, scale){
     this.context.beginPath();
     this.context.shadowBlur = '5';
     this.context.fillStyle = 'white';
-    this.context.rect(50, 50, value, 20);
+    this.context.rect(50, 50, value/this.scale, 20);
     this.context.fillText("Power : "+Math.floor(value), 50, 30);
     this.context.fill();
   };

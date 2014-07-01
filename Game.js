@@ -3,11 +3,12 @@ function Game(){
 	this.score = 0;
 	this.gameover = false;
 	this.vue = new Display([0, 0], 1);
-	this.objects = [new Ball([this.vue.canvas.width/2, this.vue.canvas.height/2], [0,0], [0, 0], 25, 10, [[0, 0]])];
+	this.objects = [new Ball([this.vue.windowW/2, this.vue.windowH/2], [0,0], [0, 0], 25, 10, [[0, 0]])];
 	this.timer = 0;
 	this.trigger = true;
 
 	this.display = function(){
+		this.vue.updateScale(this.objects[0]);
 		this.vue.clearScreen();
 		//this.vue.displayGrid();
 		this.vue.updateDisplay(this.objects[0].position);
@@ -45,19 +46,19 @@ function Game(){
 		var radius = Math.random() * (this.objects[0].radius*5/2) + this.objects[0].radius/2;
 		switch(part){
 			case 0: // l'objet popera en haut
-				var position = [Math.random()*this.vue.canvas.width + this.vue.origin[0] - this.vue.canvas.width/2, this.vue.origin[1] + (this.vue.canvas.height/2 + radius*2)];
+				var position = [Math.random()*this.vue.windowW + this.vue.origin[0] - this.vue.windowW/2, this.vue.origin[1] + (this.vue.windowH/2 + radius*2)];
 				var velocity = [Math.random() * (6) - 3, Math.random() * (3)];
 				break;
 			case 1: // l'objet popera en bas
-				var position = [Math.random()*this.vue.canvas.width + this.vue.origin[0] - this.vue.canvas.width/2, this.vue.origin[1] - (this.vue.canvas.height/2 + radius*2)];
+				var position = [Math.random()*this.vue.windowW + this.vue.origin[0] - this.vue.windowW/2, this.vue.origin[1] - (this.vue.windowH/2 + radius*2)];
 				var velocity = [Math.random() * (6) - 3, Math.random() * (-3)];
 				break;	
 			case 2: // l'objet popera en droite
-				var position = [this.vue.origin[0] + (this.vue.canvas.width/2 + radius*2), Math.random()*this.vue.canvas.height + this.vue.origin[1] - this.vue.canvas.height/2];
+				var position = [this.vue.origin[0] + (this.vue.windowW/2 + radius*2), Math.random()*this.vue.windowH + this.vue.origin[1] - this.vue.windowH/2];
 				var velocity = [Math.random() * (-3), Math.random() * (6) - 3];
 				break;
 			case 3: // l'objet popera en gauche
-				var position = [this.vue.origin[0] - (this.vue.canvas.width/2 + radius*2), Math.random()*this.vue.canvas.height + this.vue.origin[1] - this.vue.canvas.height/2];
+				var position = [this.vue.origin[0] - (this.vue.windowW/2 + radius*2), Math.random()*this.vue.windowH + this.vue.origin[1] - this.vue.windowH/2];
 				var velocity = [Math.random() * (3), Math.random() * (6) - 3];
 				break;
 		}
@@ -72,7 +73,7 @@ function Game(){
 	};
 
 	this.eliminateFarest = function(element, index){
-		if (Math.abs(element.position[0]-this.objects[0].position[0]) > this.vue.canvas.width*2 || Math.abs(element.position[1]-this.objects[0].position[1]) > this.vue.canvas.height*2){
+		if (Math.abs(element.position[0]-this.objects[0].position[0]) > this.vue.windowW*2 || Math.abs(element.position[1]-this.objects[0].position[1]) > this.vue.windowH*2){
 			this.objects.splice(index, 1);
 		}
 	};

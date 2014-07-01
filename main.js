@@ -25,7 +25,7 @@ var launchGame = function(){
 	    e.preventDefault();
 	});
 
-	$(document).click(function(e){
+	$(document).mousedown(function(e){
 		var powerUsed = Math.sqrt(squareDistanceWith([e.pageX, jeu.vue.canvas.height - e.pageY], [jeu.vue.canvas.width/2, jeu.vue.canvas.height/2]))/20;
 		var powerPrevious = powerUsed;
 		if (powerUsed > jeu.power){
