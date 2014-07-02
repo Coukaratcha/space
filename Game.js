@@ -8,7 +8,7 @@ function Game(){
 	this.trigger = true;
 
 	this.updateG = function(){
-		G = 6.67384 * 0.1 * this.vue.scale;
+		G = 6.67384 * 0.1 * Math.pow(this.vue.scale, 2);
 	};
 
 	this.display = function(){
@@ -82,7 +82,7 @@ function Game(){
 	};
 
 	this.eliminateFarest = function(element, index){
-		if (Math.abs(element.position[0]-this.objects[0].position[0]) > this.vue.windowW*10 || Math.abs(element.position[1]-this.objects[0].position[1]) > this.vue.windowH*10 || element.mass/this.objects[0].mass < 0.5){
+		if (Math.abs(element.position[0]-this.objects[0].position[0]) > this.vue.windowW*10 || Math.abs(element.position[1]-this.objects[0].position[1]) > this.vue.windowH*10 || element.radius/this.objects[0].radius < 0.1){
 			this.objects.splice(index, 1);
 		}
 	};

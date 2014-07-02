@@ -96,7 +96,7 @@ function checkInnerCollisions(objects){
           ei.acceleration[0]= (ei.mass*ei.acceleration[0] + ej.mass*ej.acceleration[0])/(ei.mass + ej.mass);
       	  ei.acceleration[1]= (ei.mass*ei.acceleration[1] + ej.mass*ej.acceleration[1])/(ei.mass + ej.mass);
       	  ei.nextRadius =  Math.pow(Math.pow(ej.radius, 3) + Math.pow(ei.radius, 3), 1.0/3);
-      	  ei.mass+= ej.mass/4;
+      	  ei.mass = Math.max(ei.mass+ej.mass/4, ej.mass+ei.mass/4);
       	  objects.splice(j, 1);
       	  ei.actions[j] = [0,0];
       	}
