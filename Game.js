@@ -8,7 +8,7 @@ function Game(){
 	this.trigger = true;
 
 	this.updateG = function(){
-		G = 6.67384* 0.1 * this.vue.scale;
+		G = 6.67384 * 0.1 * this.vue.scale;
 	};
 
 	this.display = function(){
@@ -48,7 +48,7 @@ function Game(){
 
 	this.popBody = function(){
 		var part = Math.floor(Math.random()*4);
-		var mass = Math.random() * (this.objects[0].mass*7) + 10;
+		var mass = Math.random() * (this.objects[0].mass*2) + (this.objects[0].mass*(1-1/Math.floor(this.objects[0].mass/25 + 1)));
 		var radius = Math.random() * (this.objects[0].radius*5/2) + this.objects[0].radius/2;
 		switch(part){
 			case 0: // l'objet popera en haut
@@ -68,6 +68,9 @@ function Game(){
 				var velocity = [Math.random() * (3), Math.random() * (6) - 3];
 				break;
 		}
+
+		velocity[0]*=mass/25;
+		velocity[1]*=mass/25;
 		this.objects.push(new Ball(
 			position, 
 			velocity, 
@@ -79,7 +82,7 @@ function Game(){
 	};
 
 	this.eliminateFarest = function(element, index){
-		if (Math.abs(element.position[0]-this.objects[0].position[0]) > this.vue.windowW*10 || Math.abs(element.position[1]-this.objects[0].position[1]) > this.vue.windowH*10){
+		if (Math.abs(element.position[0]-this.objects[0].position[0]) > this.vue.windowW*10 || Math.abs(element.position[1]-this.objects[0].position[1]) > this.vue.windowH*10 || element.mass/this.objects[0].mass < 0.5){
 			this.objects.splice(index, 1);
 		}
 	};

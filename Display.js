@@ -21,7 +21,7 @@ function Display(origin, scale){
       this.nextScale = 1;
     }
     if (this.nextScale > this.scale){
-      this.scale+= this.scale*0.05;
+      this.scale+= 0.01*this.scale;
     }
     this.windowH = this.canvas.height*this.scale;
     this.windowW = this.canvas.width*this.scale;

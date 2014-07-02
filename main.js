@@ -21,18 +21,14 @@ $("button#restart").click(function(){
 var launchGame = function(){
 	var jeu = new Game();
 
-	$(document).bind('dblclick',function(e){
-	    e.preventDefault();
-	});
-
-	$(document).mousedown(function(e){
-		var powerUsed = Math.sqrt(squareDistanceWith([e.pageX, jeu.vue.canvas.height - e.pageY], [jeu.vue.canvas.width/2, jeu.vue.canvas.height/2]))/20;
+	$("#screen").mousedown(function(e){
+		var powerUsed = Math.sqrt(squareDistanceWith([e.pageX, jeu.vue.canvas.height - e.pageY], [jeu.vue.canvas.width/2, jeu.vue.canvas.height/2]))*jeu.vue.scale/100;
 		var powerPrevious = powerUsed;
 		if (powerUsed > jeu.power){
 			powerUsed = jeu.power;
 		}
-		jeu.objects[0].velocity[0]+= (e.pageX - jeu.vue.canvas.width/2)/50*(powerUsed/powerPrevious);
-		jeu.objects[0].velocity[1]+= (jeu.vue.canvas.height/2 - e.pageY)/50*(powerUsed/powerPrevious);
+		jeu.objects[0].velocity[0]+= (e.pageX - jeu.vue.canvas.width/2)*(powerUsed/powerPrevious)*jeu.vue.scale/100;
+		jeu.objects[0].velocity[1]+= (jeu.vue.canvas.height/2 - e.pageY)*(powerUsed/powerPrevious)*jeu.vue.scale/100;
 		jeu.power-= powerUsed;
 	});
 
